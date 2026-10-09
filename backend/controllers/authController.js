@@ -9,12 +9,12 @@ exports.register = async (req, res) => {
     const { name, email, password, role, branch, year } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "Name, email aur password zaruri hain" });
+      return res.status(400).json({ message: "Name, email and password are required" });
     }
 
     const exists = await User.findOne({ email });
     if (exists) {
-      return res.status(400).json({ message: "Is email se account pehle se hai" });
+      return res.status(400).json({ message: "An account with this email already exists" });
     }
 
     // admin role signup se nahi milega, sirf student ya senior
@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || !(await user.matchPassword(password))) {
-      return res.status(401).json({ message: "Email ya password galat hai" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     res.json({
