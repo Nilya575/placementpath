@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/companies", require("./routes/companyRoutes"));
+app.use("/api/experiences", require("./routes/experienceRoutes"));
 app.get("/", (req, res) => {
   res.send("PlacementPath API chal raha hai");
 });

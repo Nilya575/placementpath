@@ -28,3 +28,8 @@ exports.adminOnly = (req, res, next) => {
   if (req.user && req.user.role === "admin") return next();
   res.status(403).json({ message: "Sirf admin ke liye" });
 };
+// Allow only the given roles, e.g. allowRoles("senior", "admin")
+exports.allowRoles = (...roles) => (req, res, next) => {
+  if (req.user && roles.includes(req.user.role)) return next();
+  res.status(403).json({ message: "You do not have permission to do this" });
+};
